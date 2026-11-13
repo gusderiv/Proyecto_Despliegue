@@ -1,8 +1,6 @@
 import express from 'express';
 import evento from '../models/evento.js';
 import recinto from '../models/recinto.js';
-import { eventLoopUtilization } from 'node:perf_hooks';
-import evento from '../models/evento.js';
 
 
 //enrutador express
