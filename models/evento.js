@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 //esquemas
 const entrada = mongoose.Schema({
-    
+    //vip o general
     tipo:{ 
     type: String,
     required: true,
