@@ -49,15 +49,9 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+/*para buenas practicas utilizar las mas especificas y luego dejar
+las mas generales.*/
 
-
-/*
-Orden de las rutas: Mantén router.get('/localidad/:nombre', ...) 
-por encima de router.get('/:id', ...) 
-para respetar la buena práctica de declarar las rutas más específicas 
-antes de las rutas con parámetros genéricos en la raíz.
-
-*/
 
 //GET /eventos/localidad/:nombre:
 router.get('/localidad/:nombre', async (req, res) => {
