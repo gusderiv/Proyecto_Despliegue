@@ -49,9 +49,15 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-/*para buenas practicas utilizar las mas especificas y luego dejar
-las mas generales.*/
 
+
+/*
+Orden de las rutas: Mantén router.get('/localidad/:nombre', ...) 
+por encima de router.get('/:id', ...) 
+para respetar la buena práctica de declarar las rutas más específicas 
+antes de las rutas con parámetros genéricos en la raíz.
+
+*/
 
 //GET /eventos/localidad/:nombre:
 router.get('/localidad/:nombre', async (req, res) => {
@@ -152,7 +158,7 @@ router.put('/:id', async (req, res) => {
 //DELETE /eventos/:id:
 router.delete('/:id', async (req, res) => {
     try {
-        let resultado = await Evento.findByIdAndDelete(req.params.id);
+        let resultado = await evento.findByIdAndDelete(req.params.id);
 
         if (resultado) {
             res.status(200).send({ 
@@ -176,10 +182,10 @@ router.delete('/:id', async (req, res) => {
 //consulta de datos de una entrada
 router.get('/entradas/:idEvento/:tipoEntrada', async (req, res) => {
     try {
-        let evento = await Evento.findById(req.params.idEvento);
+        let eventoEncontrado = await evento.findById(req.params.idEvento);
 
-        if (evento) {
-            let entrada = evento.entradas.find(p => p.tipo === req.params.tipoEntrada);
+        if (eventoEncontrado) {
+            let entrada = eventoEncontrado.entradas.find(p => p.tipo === req.params.tipoEntrada);
             
             if (entrada) {
                 res.status(200).send({
@@ -195,14 +201,15 @@ router.get('/entradas/:idEvento/:tipoEntrada', async (req, res) => {
 
         res.status(404).send({ 
             ok: false, 
-            error: `Error obteniendo datos de entrada para evento ${req.params.idEvento}` });
+            error: `Error obteniendo datos de entrada para evento: ${req.params.idEvento}` });
     } 
     catch (error) {
         res.status(404).send({ 
             ok: false, 
-            error: `Error obteniendo datos de entrada para evento ${req.params.idEvento}` });
+            error: `Error obteniendo datos de entrada para evento: ${req.params.idEvento}` });
     }
 });
+
 
 
 //PUT /eventos/entradas/:idEvento/:tipoEntrada/:cantidad: 
